@@ -9,12 +9,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Art Deco inspired display + clean sans-serif -->
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="deco.css" />
+    <link rel="stylesheet" href="oldschool.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
   </head>
   <body>
     <!-- Theme Toggle Switch -->
-    <div class="theme-toggle" aria-label="Toggle light/dark mode">
+    <div class="theme-toggle" aria-label="Toggle light/dark mode and design theme">
+      <select class="theme-dropdown" id="themeDesign" aria-label="Choose design theme">
+        <option value="deco">Deco</option>
+        <option value="oldschool">Old School</option>
+      </select>
       <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <circle cx="12" cy="12" r="4"/>
@@ -72,6 +78,7 @@
     <script>
       // Theme toggle functionality
       const themeToggle = document.getElementById('themeToggle');
+      const themeDesign = document.getElementById('themeDesign');
       const html = document.documentElement;
       
       // Get stored theme or detect system preference
@@ -82,6 +89,12 @@
         }
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       };
+
+      // Get stored design theme
+      const getPreferredDesign = () => {
+        const storedDesign = localStorage.getItem('design');
+        return storedDesign || 'deco';
+      };
       
       // Apply theme
       const setTheme = (theme) => {
@@ -89,15 +102,31 @@
         localStorage.setItem('theme', theme);
         themeToggle.setAttribute('aria-pressed', theme === 'dark');
       };
+
+      // Apply design
+      const setDesign = (design) => {
+        html.setAttribute('data-design', design);
+        localStorage.setItem('design', design);
+        themeDesign.value = design;
+      };
       
       // Initialize theme
       const currentTheme = getPreferredTheme();
       setTheme(currentTheme);
+
+      // Initialize design
+      const currentDesign = getPreferredDesign();
+      setDesign(currentDesign);
       
       // Toggle theme on button click
       themeToggle.addEventListener('click', () => {
         const newTheme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
+      });
+
+      // Change design on dropdown change
+      themeDesign.addEventListener('change', (e) => {
+        setDesign(e.target.value);
       });
       
       // Listen for system theme changes
