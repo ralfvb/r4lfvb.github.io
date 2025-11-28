@@ -1,0 +1,213 @@
+/* ========================
+   Forest Theme
+   ======================== */
+
+/* Base Forest colors - earth and nature aesthetic */
+:root[data-design="forest"] {
+  --font-display: 'Raleway', 'Montserrat', system-ui, sans-serif;
+  --font-sans: 'Raleway', 'Montserrat', system-ui, sans-serif;
+
+  --color-bg: #ecf0e8;
+  --color-bg-accent: #dce4d6;
+  --color-card: #f5f8f3cc;
+  --color-border: #7a9b6f;
+  --color-border-strong: #3d5a2f;
+  --color-text: #1f3a1a;
+  --color-text-muted: #5a7052;
+  --color-accent: #5a8b4a;
+  --shadow: 0 6px 20px rgba(61, 90, 47, 0.12);
+  --focus-ring: 0 0 0 2px #ecf0e8, 0 0 0 4px #5a8b4a;
+  
+  --polaroid-bg: #fafbf8;
+  --polaroid-img-filter: brightness(0.98) saturate(0.92);
+}
+
+/* Forest dark mode */
+:root[data-design="forest"][data-theme="dark"] {
+  --color-bg: #1a2414;
+  --color-bg-accent: #242f1c;
+  --color-card: #2d3a24aa;
+  --color-border: #4d6d42;
+  --color-border-strong: #7a9b6f;
+  --color-text: #c5d1ba;
+  --color-text-muted: #8fa982;
+  --color-accent: #7a9b6f;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  --polaroid-bg: #242f1c;
+  --polaroid-img-filter: brightness(0.92) contrast(1.08);
+}
+
+/* Forest light mode */
+:root[data-design="forest"][data-theme="light"] {
+  --color-bg: #f1f5ed;
+  --color-bg-accent: #e6ecde;
+  --color-card: #ffffffdd;
+  --color-border: #8fa982;
+  --color-border-strong: #3d5a2f;
+  --color-text: #1f3a1a;
+  --color-text-muted: #6a7f5f;
+  --color-accent: #5a8b4a;
+  --shadow: 0 6px 20px rgba(61, 90, 47, 0.08);
+}
+
+/* Forest Card */
+:root[data-design="forest"] .card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 1.4rem;
+  backdrop-filter: blur(10px) saturate(130%);
+  box-shadow: var(--shadow);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+:root[data-design="forest"] .name {
+  color: var(--color-border-strong);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 6vw, 2.75rem);
+}
+
+:root[data-design="forest"] .tagline {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* Forest Polaroid */
+:root[data-design="forest"] .polaroid {
+  background: var(--polaroid-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 1.1rem;
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow);
+  padding: 0.6rem;
+}
+
+:root[data-design="forest"] .polaroid img {
+  border: none;
+  border-radius: 0.7rem;
+  filter: var(--polaroid-img-filter);
+}
+
+/* Forest Buttons */
+:root[data-design="forest"] .btn {
+  --btn-border: var(--color-border-strong);
+  background: var(--color-accent);
+  color: #ffffff;
+  border: 1px solid var(--btn-border);
+  border-radius: 0.9rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+}
+
+:root[data-design="forest"] .btn::before {
+  display: none;
+}
+
+:root[data-design="forest"] .btn:hover {
+  background: var(--color-border-strong);
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 12px rgba(90, 139, 74, 0.25);
+  transform: translateY(-1px);
+}
+
+:root[data-design="forest"] .btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+:root[data-design="forest"] .btn:active {
+  transform: translateY(0);
+}
+
+/* Forest brand buttons */
+:root[data-design="forest"] .btn--linkedin,
+:root[data-design="forest"] .btn--github,
+:root[data-design="forest"] .btn--unsplash {
+  background: var(--color-accent);
+  border-color: var(--color-border-strong);
+  color: #ffffff;
+}
+
+:root[data-design="forest"] .btn--linkedin:hover,
+:root[data-design="forest"] .btn--github:hover,
+:root[data-design="forest"] .btn--unsplash:hover {
+  background: var(--color-border-strong);
+  box-shadow: 0 4px 12px rgba(90, 139, 74, 0.25);
+}
+
+/* Forest Theme Toggle */
+:root[data-design="forest"] .theme-toggle__switch {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+:root[data-design="forest"] .theme-toggle__switch:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: 0 4px 12px rgba(61, 90, 47, 0.15);
+}
+
+:root[data-design="forest"] .theme-toggle__icon {
+  color: var(--color-text);
+}
+
+:root[data-design="forest"] .theme-toggle__slider {
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+/* Forest Dropdown */
+:root[data-design="forest"] .theme-dropdown {
+  background: var(--color-card);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 0.9rem;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.45rem 0.6rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235a8b4a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1.2em;
+  padding-right: 2rem;
+}
+
+:root[data-design="forest"][data-theme="dark"] .theme-dropdown {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a9b6f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+:root[data-design="forest"] .theme-dropdown:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: 0 4px 12px rgba(61, 90, 47, 0.15);
+}
+
+:root[data-design="forest"] .theme-dropdown:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-color: var(--color-border-strong);
+}
+
+:root[data-design="forest"] .theme-dropdown option {
+  background: var(--color-card);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+/* Forest responsive */
+@media (max-width: 560px) {
+  :root[data-design="forest"] .theme-dropdown {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.5rem;
+    padding-right: 1.8rem;
+  }
+}

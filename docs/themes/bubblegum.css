@@ -1,0 +1,209 @@
+/* ========================
+   Bubblegum Theme
+   ======================== */
+
+/* Base Bubblegum colors - bright and playful */
+:root[data-design="bubblegum"] {
+  --font-display: 'Raleway', 'Montserrat', system-ui, sans-serif;
+  --font-sans: 'Raleway', 'Montserrat', system-ui, sans-serif;
+
+  --color-bg: #fef3f9;
+  --color-bg-accent: #ffe8f3;
+  --color-card: #ffffffcc;
+  --color-border: #ff69b4;
+  --color-border-strong: #ff1493;
+  --color-text: #d946a6;
+  --color-text-muted: #ec4899;
+  --color-accent: #ff1493;
+  --shadow: 0 8px 24px rgba(255, 105, 180, 0.25);
+  --focus-ring: 0 0 0 3px #fef3f9, 0 0 0 6px #ff1493;
+  
+  --polaroid-bg: #ffffff;
+  --polaroid-img-filter: brightness(1.05) saturate(1.1);
+}
+
+/* Bubblegum dark mode */
+:root[data-design="bubblegum"][data-theme="dark"] {
+  --color-bg: #3d1d2a;
+  --color-bg-accent: #4d2d3a;
+  --color-card: #5d3d4acc;
+  --color-border: #ff69b4;
+  --color-border-strong: #ff1493;
+  --color-text: #ffb3d9;
+  --color-text-muted: #ff85c0;
+  --color-accent: #ffff00;
+  --shadow: 0 8px 24px rgba(255, 20, 147, 0.3);
+  --polaroid-bg: #4d2d3a;
+  --polaroid-img-filter: brightness(0.95) saturate(1.15);
+}
+
+/* Bubblegum light mode */
+:root[data-design="bubblegum"][data-theme="light"] {
+  --color-bg: #fff5fa;
+  --color-bg-accent: #ffebf5;
+  --color-card: #ffffffdd;
+  --color-border: #ff69b4;
+  --color-border-strong: #ff1493;
+  --color-text: #d946a6;
+  --color-text-muted: #ec4899;
+  --color-accent: #ff1493;
+  --shadow: 0 8px 24px rgba(255, 105, 180, 0.2);
+}
+
+/* Bubblegum Card */
+:root[data-design="bubblegum"] .card {
+  background: var(--color-card);
+  border: 2px solid var(--color-border);
+  border-radius: 1.8rem;
+  backdrop-filter: blur(10px) saturate(180%);
+  box-shadow: var(--shadow);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+:root[data-design="bubblegum"] .name {
+  color: var(--color-accent);
+  font-weight: 900;
+  font-style: italic;
+  text-shadow: 0 2px 8px rgba(255, 20, 147, 0.2);
+}
+
+:root[data-design="bubblegum"] .tagline {
+  color: var(--color-text-muted);
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Bubblegum Polaroid */
+:root[data-design="bubblegum"] .polaroid {
+  background: var(--polaroid-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 1.2rem;
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow);
+}
+
+:root[data-design="bubblegum"] .polaroid img {
+  border: none;
+  border-radius: 0.8rem;
+  filter: var(--polaroid-img-filter);
+}
+
+/* Bubblegum Buttons */
+:root[data-design="bubblegum"] .btn {
+  --btn-border: var(--color-border-strong);
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  color: #ffffff;
+  border: 2px solid var(--btn-border);
+  border-radius: 1.5rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: all 0.3s ease;
+}
+
+:root[data-design="bubblegum"] .btn::before {
+  display: none;
+}
+
+:root[data-design="bubblegum"] .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 20, 147, 0.3);
+  border-color: var(--color-accent);
+}
+
+:root[data-design="bubblegum"] .btn:focus-visible {
+  outline: 2px dashed var(--color-accent);
+  outline-offset: 3px;
+}
+
+:root[data-design="bubblegum"] .btn:active {
+  transform: translateY(0);
+}
+
+/* Bubblegum brand buttons */
+:root[data-design="bubblegum"] .btn--linkedin,
+:root[data-design="bubblegum"] .btn--github,
+:root[data-design="bubblegum"] .btn--unsplash {
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+}
+
+:root[data-design="bubblegum"] .btn--linkedin:hover,
+:root[data-design="bubblegum"] .btn--github:hover,
+:root[data-design="bubblegum"] .btn--unsplash:hover {
+  box-shadow: 0 8px 20px rgba(255, 20, 147, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Bubblegum Theme Toggle */
+:root[data-design="bubblegum"] .theme-toggle__switch {
+  background: var(--color-card);
+  border: 2px solid var(--color-border);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+:root[data-design="bubblegum"] .theme-toggle__switch:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
+}
+
+:root[data-design="bubblegum"] .theme-toggle__icon {
+  color: var(--color-text);
+}
+
+:root[data-design="bubblegum"] .theme-toggle__slider {
+  background: var(--color-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+}
+
+/* Bubblegum Dropdown */
+:root[data-design="bubblegum"] .theme-dropdown {
+  background: var(--color-card);
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
+  border-radius: 1.2rem;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff1493' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.4rem center;
+  background-size: 1rem;
+  padding-right: 1.8rem;
+  font-style: italic;
+}
+
+:root[data-design="bubblegum"] .theme-dropdown:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
+}
+
+:root[data-design="bubblegum"] .theme-dropdown:focus-visible {
+  outline: 2px dashed var(--color-accent);
+  outline-offset: 2px;
+  border-color: var(--color-accent);
+}
+
+:root[data-design="bubblegum"] .theme-dropdown option {
+  background: var(--color-card);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+/* Bubblegum responsive */
+@media (max-width: 560px) {
+  :root[data-design="bubblegum"] .theme-dropdown {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+    padding-right: 1.6rem;
+  }
+}

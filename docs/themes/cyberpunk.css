@@ -1,0 +1,255 @@
+/* ========================
+   Cyberpunk Theme
+   ======================== */
+
+/* Base Cyberpunk colors - aggressive neon */
+:root[data-design="cyberpunk"] {
+  --font-display: 'Raleway', 'Montserrat', system-ui, sans-serif;
+  --font-sans: 'Raleway', 'Montserrat', system-ui, sans-serif;
+
+  --color-bg: #000000;
+  --color-bg-accent: #0a0014;
+  --color-card: #1a002ecc;
+  --color-border: #ff00ff;
+  --color-border-strong: #00ff00;
+  --color-text: #ffffff;
+  --color-text-muted: #ff00ff;
+  --color-accent: #00ff00;
+  --shadow: 0 0 30px rgba(255, 0, 255, 0.6), 0 0 60px rgba(0, 255, 0, 0.4);
+  --focus-ring: 0 0 0 2px #000000, 0 0 0 4px #00ff00;
+  
+  --polaroid-bg: #0a0014;
+  --polaroid-img-filter: brightness(1) contrast(1.3) saturate(1.2);
+}
+
+/* Cyberpunk dark mode (enhanced neon) */
+:root[data-design="cyberpunk"][data-theme="dark"] {
+  --color-bg: #000000;
+  --color-bg-accent: #050008;
+  --color-card: #0f001fcc;
+  --color-border: #ff00ff;
+  --color-border-strong: #00ffff;
+  --color-text: #ffffff;
+  --color-text-muted: #ff00ff;
+  --color-accent: #00ffff;
+  --shadow: 0 0 40px rgba(255, 0, 255, 0.7), 0 0 80px rgba(0, 255, 255, 0.5);
+  --polaroid-bg: #050008;
+  --polaroid-img-filter: brightness(1.1) contrast(1.4) saturate(1.3);
+}
+
+/* Cyberpunk light mode */
+:root[data-design="cyberpunk"][data-theme="light"] {
+  --color-bg: #1a0033;
+  --color-bg-accent: #2a0055;
+  --color-card: #3a0066cc;
+  --color-border: #ff00ff;
+  --color-border-strong: #00ff00;
+  --color-text: #ffffff;
+  --color-text-muted: #ff00ff;
+  --color-accent: #00ff00;
+  --shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+}
+
+/* Cyberpunk Card */
+:root[data-design="cyberpunk"] .card {
+  background: var(--color-card);
+  border: 3px solid var(--color-border);
+  border-radius: 0;
+  backdrop-filter: blur(15px);
+  box-shadow: var(--shadow);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  position: relative;
+}
+
+:root[data-design="cyberpunk"] .card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 0, 255, 0.03),
+      rgba(255, 0, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  z-index: 1;
+}
+
+:root[data-design="cyberpunk"] .card > * {
+  position: relative;
+  z-index: 2;
+}
+
+:root[data-design="cyberpunk"] .name {
+  color: var(--color-accent);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 10px var(--color-accent), 0 0 20px rgba(0, 255, 0, 0.5);
+  font-size: clamp(1.5rem, 7vw, 3rem);
+}
+
+:root[data-design="cyberpunk"] .tagline {
+  color: var(--color-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+}
+
+/* Cyberpunk Polaroid */
+:root[data-design="cyberpunk"] .polaroid {
+  background: var(--polaroid-bg);
+  border: 3px solid var(--color-border);
+  border-radius: 0;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+}
+
+:root[data-design="cyberpunk"] .polaroid img {
+  border: none;
+  border-radius: 0;
+  filter: var(--polaroid-img-filter);
+}
+
+/* Cyberpunk Buttons */
+:root[data-design="cyberpunk"] .btn {
+  --btn-border: var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  border: 2px solid var(--btn-border);
+  border-radius: 0;
+  font-family: var(--font-sans);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.1);
+}
+
+:root[data-design="cyberpunk"] .btn::before {
+  display: none;
+}
+
+:root[data-design="cyberpunk"] .btn:hover {
+  background: var(--color-accent);
+  color: #000000;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px var(--color-accent), inset 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+:root[data-design="cyberpunk"] .btn:focus-visible {
+  outline: 2px dashed var(--color-accent);
+  outline-offset: 3px;
+}
+
+:root[data-design="cyberpunk"] .btn:active {
+  transform: scale(0.95);
+}
+
+/* Cyberpunk brand buttons */
+:root[data-design="cyberpunk"] .btn--linkedin,
+:root[data-design="cyberpunk"] .btn--github,
+:root[data-design="cyberpunk"] .btn--unsplash {
+  --btn-border: var(--color-accent);
+  color: var(--color-accent);
+}
+
+:root[data-design="cyberpunk"] .btn--linkedin:hover,
+:root[data-design="cyberpunk"] .btn--github:hover,
+:root[data-design="cyberpunk"] .btn--unsplash:hover {
+  background: var(--color-accent);
+  color: #000000;
+  box-shadow: 0 0 30px var(--color-accent);
+}
+
+/* Cyberpunk Theme Toggle */
+:root[data-design="cyberpunk"] .theme-toggle__switch {
+  background: var(--color-card);
+  border: 2px solid var(--color-border);
+  border-radius: 0;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(15px);
+}
+
+:root[data-design="cyberpunk"] .theme-toggle__switch:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px var(--color-accent);
+}
+
+:root[data-design="cyberpunk"] .theme-toggle__icon {
+  color: var(--color-text);
+}
+
+:root[data-design="cyberpunk"] .theme-toggle__slider {
+  background: var(--color-accent);
+  border-radius: 0;
+  box-shadow: 0 0 15px var(--color-accent);
+}
+
+/* Cyberpunk Dropdown */
+:root[data-design="cyberpunk"] .theme-dropdown {
+  background: var(--color-card);
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
+  border-radius: 0;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(15px);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300ff00' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.3rem center;
+  background-size: 1rem;
+  padding-right: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+:root[data-design="cyberpunk"][data-theme="dark"] .theme-dropdown {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300ffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+:root[data-design="cyberpunk"] .theme-dropdown:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px var(--color-accent);
+}
+
+:root[data-design="cyberpunk"] .theme-dropdown:focus-visible {
+  outline: 2px dashed var(--color-accent);
+  outline-offset: 2px;
+  border-color: var(--color-accent);
+}
+
+:root[data-design="cyberpunk"] .theme-dropdown option {
+  background: var(--color-card);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+/* Cyberpunk responsive */
+@media (max-width: 560px) {
+  :root[data-design="cyberpunk"] .theme-dropdown {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.5rem;
+    padding-right: 1.4rem;
+  }
+}
+
+/* Cyberpunk scanlines */
+@media (prefers-reduced-motion: reduce) {
+  :root[data-design="cyberpunk"] .card::after {
+    display: none;
+  }
+}
