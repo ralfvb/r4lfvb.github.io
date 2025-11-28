@@ -5,20 +5,7 @@
   --font-display: 'Yeseva One', 'Montserrat', 'Raleway', system-ui, sans-serif;
   --font-sans: 'Raleway', 'Montserrat', system-ui, sans-serif;
 
-  --color-bg: #f5fdf9;           /* calmer mint */
-  --color-bg-accent: #e9f7f0;    /* subtle wash */
-  --color-card: #ffffffcc;       /* airy panel */
-  --color-border: #b9e6d3;       /* faint edge */
-  --color-border-strong: #64b891;/* accents */
-  --color-text: #1e3228;         /* forest */
-  --color-text-muted: #587766;   /* soft */
-  --color-accent: #ff8eea;       /* pink */
-  --shadow: 0 4px 22px -10px rgba(30, 50, 40, 0.25);
-  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-accent);
-}
-
-/* Light theme explicit */
-:root[data-theme="light"] {
+  /* Light theme colors */
   --color-bg: #f5fdf9;
   --color-bg-accent: #e9f7f0;
   --color-card: #ffffffcc;
@@ -26,21 +13,17 @@
   --color-border-strong: #64b891;
   --color-text: #1e3228;
   --color-text-muted: #587766;
+  --color-accent: #ff8eea;
   --shadow: 0 4px 22px -10px rgba(30, 50, 40, 0.25);
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-accent);
+  
+  /* Polaroid styling */
+  --polaroid-bg: #ffffff;
+  --polaroid-img-filter: brightness(1);
 }
 
-/* Dark theme explicit */
-:root[data-theme="dark"] {
-  --color-bg: #0d1c16;
-  --color-bg-accent: #12251d;
-  --color-card: #162f25cc;
-  --color-border: #2d5747;
-  --color-border-strong: #4d9c79;
-  --color-text: #dff6ec;
-  --color-text-muted: #93b6a7;
-  --shadow: 0 4px 28px -8px rgba(0, 0, 0, 0.55);
-}
-
+/* Dark theme */
+:root[data-theme="dark"],
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --color-bg: #0d1c16;
@@ -51,16 +34,27 @@
     --color-text: #dff6ec;
     --color-text-muted: #93b6a7;
     --shadow: 0 4px 28px -8px rgba(0, 0, 0, 0.55);
+    --polaroid-bg: #1a2e27;
+    --polaroid-img-filter: brightness(0.95);
   }
 }
 
 /* ========================
    Global Reset & Base
    ======================== */
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
 body {
+  height: 100%;
   margin: 0;
+}
+
+body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   background: linear-gradient(140deg, var(--color-bg) 0%, var(--color-bg-accent) 100%) fixed;
@@ -77,91 +71,35 @@ body {
 .site {
   flex: 1;
   display: flex;
-  flex-direction: column; /* stack content vertically */
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* start below body top padding by default */
-}
-
-/* When viewport height is very small, ensure additional offset before content */
-@media (max-height: 680px) {
-  .profile { margin-top: 1rem; }
-}
-
-/* When viewport height is comfortably large, center content vertically */
-@media (min-height: 780px) {
-  /* Center content but always reserve space for fixed toggle */
-  .site { justify-content: center; padding-top: 5.5rem; }
-  .profile { margin-top: 0; } /* remove small-height offset */
+  justify-content: center;
 }
 
 /* ========================
-   Profile Layout (Card + Polaroid)
+   Profile Layout
    ======================== */
 .profile {
   display: grid;
   grid-template-columns: auto auto;
-  align-items: stretch; /* match heights */
+  align-items: stretch;
   gap: clamp(1rem, 2.5vw, 1.5rem);
 }
 
-.polaroid {
-  --inner-radius: 0.9rem;
-  --polaroid-bg: #ffffff;
-  background: var(--polaroid-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 1.4rem;
-  box-shadow: var(--shadow);
-  display: flex;
-  padding: 0.9rem;
-  width: clamp(220px, 30vw, 300px);
-  -webkit-backdrop-filter: blur(6px) saturate(140%);
-  backdrop-filter: blur(6px) saturate(140%);
-  position: relative;
-}
-
-/* Dark theme polaroid styling */
-:root[data-theme="dark"] .polaroid {
-  --polaroid-bg: #1a2e27;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .polaroid {
-    --polaroid-bg: #1a2e27;
-  }
-}
-
-.polaroid img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: var(--inner-radius);
-  display: block;
-  /* Subtle brightness adjustment for dark mode */
-  transition: filter 0.3s ease;
-}
-
-:root[data-theme="dark"] .polaroid img {
-  filter: brightness(0.95);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .polaroid img {
-    filter: brightness(0.95);
+@media (max-height: 680px) {
+  .profile {
+    margin-top: 1rem;
   }
 }
 
 /* ========================
-   Card Layout
+   Card
    ======================== */
 .card {
-  --pad-x: clamp(1.75rem, 5vw, 3.75rem);
-  --pad-y: clamp(2rem, 5vh, 3.5rem);
   background: var(--color-card);
-  -webkit-backdrop-filter: blur(10px) saturate(160%);
   backdrop-filter: blur(10px) saturate(160%);
-  padding: var(--pad-y) var(--pad-x);
+  padding: clamp(2rem, 5vh, 3.5rem) clamp(1.75rem, 5vw, 3.75rem);
   border-radius: 1.4rem;
-  position: relative;
   width: min(600px, 100%);
   display: flex;
   flex-direction: column;
@@ -208,6 +146,30 @@ body {
 }
 
 /* ========================
+   Polaroid
+   ======================== */
+.polaroid {
+  background: var(--polaroid-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 1.4rem;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px) saturate(140%);
+  display: flex;
+  padding: 0.9rem;
+  width: clamp(220px, 30vw, 300px);
+}
+
+.polaroid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.9rem;
+  display: block;
+  filter: var(--polaroid-img-filter);
+  transition: filter 0.3s ease;
+}
+
+/* ========================
    Buttons
    ======================== */
 .links {
@@ -217,7 +179,6 @@ body {
 }
 
 .btn {
-  --btn-fg: var(--color-text);
   --btn-border: var(--color-border-strong);
   display: inline-flex;
   align-items: center;
@@ -230,7 +191,7 @@ body {
   font-weight: 600;
   text-decoration: none;
   background: transparent;
-  color: var(--btn-fg);
+  color: var(--color-text);
   border: 1px solid var(--btn-border);
   border-radius: 999px;
   position: relative;
@@ -238,25 +199,7 @@ body {
   transition: border-color 0.3s, background-color 0.3s, color 0.3s, transform 0.25s;
 }
 
-.btn svg {
-  width: 1.1rem;
-  height: 1.1rem;
-  fill: currentColor;
-  display: block;
-}
-
-.btn--linkedin { --btn-border: #0a66c2; }
-.btn--github { --btn-border: #24292f; }
-.btn--unsplash { --btn-border: #000000; }
-:root[data-theme="dark"] .btn--github { --btn-border: #c9d1d9; }
-:root[data-theme="dark"] .btn--unsplash { --btn-border: #ffffff; }
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .btn--github { --btn-border: #c9d1d9; }
-  :root:not([data-theme]) .btn--unsplash { --btn-border: #ffffff; }
-}
-
-.btn:before {
+.btn::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -268,11 +211,35 @@ body {
   pointer-events: none;
 }
 
-.btn:hover, .btn:focus-visible { border-color: var(--color-accent); color: var(--color-text); }
-.btn:hover:before, .btn:focus-visible:before { opacity: 0.18; }
-.btn:active { transform: translateY(1px); }
+.btn:hover,
+.btn:focus-visible {
+  border-color: var(--color-accent);
+}
 
-/* LinkedIn hover - blue theme */
+.btn:hover::before,
+.btn:focus-visible::before {
+  opacity: 0.18;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: currentColor;
+}
+
+.btn__icon {
+  display: flex;
+}
+
+/* Brand-specific button colors */
+.btn--linkedin {
+  --btn-border: #0a66c2;
+}
+
 .btn--linkedin:hover,
 .btn--linkedin:focus-visible {
   background-color: #0a66c2;
@@ -280,12 +247,15 @@ body {
   color: #ffffff;
 }
 
-.btn--linkedin:hover:before,
-.btn--linkedin:focus-visible:before {
+.btn--linkedin:hover::before,
+.btn--linkedin:focus-visible::before {
   opacity: 0;
 }
 
-/* GitHub hover - light theme */
+.btn--github {
+  --btn-border: #24292f;
+}
+
 .btn--github:hover,
 .btn--github:focus-visible {
   background-color: #24292f;
@@ -293,29 +263,15 @@ body {
   color: #ffffff;
 }
 
-.btn--github:hover:before,
-.btn--github:focus-visible:before {
+.btn--github:hover::before,
+.btn--github:focus-visible::before {
   opacity: 0;
 }
 
-/* GitHub hover - dark theme */
-:root[data-theme="dark"] .btn--github:hover,
-:root[data-theme="dark"] .btn--github:focus-visible {
-  background-color: #f6f8fa;
-  border-color: #f6f8fa;
-  color: #24292f;
+.btn--unsplash {
+  --btn-border: #000000;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .btn--github:hover,
-  :root:not([data-theme]) .btn--github:focus-visible {
-    background-color: #f6f8fa;
-    border-color: #f6f8fa;
-    color: #24292f;
-  }
-}
-
-/* Unsplash hover - light theme */
 .btn--unsplash:hover,
 .btn--unsplash:focus-visible {
   background-color: #000000;
@@ -323,12 +279,27 @@ body {
   color: #ffffff;
 }
 
-.btn--unsplash:hover:before,
-.btn--unsplash:focus-visible:before {
+.btn--unsplash:hover::before,
+.btn--unsplash:focus-visible::before {
   opacity: 0;
 }
 
-/* Unsplash hover - dark theme */
+/* Dark theme button adjustments */
+:root[data-theme="dark"] .btn--github {
+  --btn-border: #c9d1d9;
+}
+
+:root[data-theme="dark"] .btn--github:hover,
+:root[data-theme="dark"] .btn--github:focus-visible {
+  background-color: #f6f8fa;
+  border-color: #f6f8fa;
+  color: #24292f;
+}
+
+:root[data-theme="dark"] .btn--unsplash {
+  --btn-border: #ffffff;
+}
+
 :root[data-theme="dark"] .btn--unsplash:hover,
 :root[data-theme="dark"] .btn--unsplash:focus-visible {
   background-color: #ffffff;
@@ -337,6 +308,21 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .btn--github {
+    --btn-border: #c9d1d9;
+  }
+
+  :root:not([data-theme]) .btn--github:hover,
+  :root:not([data-theme]) .btn--github:focus-visible {
+    background-color: #f6f8fa;
+    border-color: #f6f8fa;
+    color: #24292f;
+  }
+
+  :root:not([data-theme]) .btn--unsplash {
+    --btn-border: #ffffff;
+  }
+
   :root:not([data-theme]) .btn--unsplash:hover,
   :root:not([data-theme]) .btn--unsplash:focus-visible {
     background-color: #ffffff;
@@ -345,44 +331,14 @@ body {
   }
 }
 
-.btn__icon {
-  display: flex;
-}
-
-/* Accent ring on focus when using keyboard only */
-body :focus-visible {
+/* Focus styles */
+:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
 
 /* ========================
-   Responsive Tweaks
-   ======================== */
-@media (max-width: 560px) {
-  .profile { display: flex; flex-direction: column; align-items: center; }
-  .polaroid { width: 100%; height: auto; }
-  .card { gap: 2rem; }
-  .links { flex-direction: column; }
-  .btn { width: 100%; justify-content: center; }
-}
-
-/* Reduce motion respect */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
-/* Fine-grained typography smoothing for hi-dpi */
-@supports (font-smooth: antialiased) {
-  body {
-    font-smooth: antialiased;
-  }
-}
-
-/* ========================
-   Theme Toggle Switch
+   Theme Toggle
    ======================== */
 .theme-toggle {
   position: fixed;
@@ -406,17 +362,13 @@ body :focus-visible {
   border: 1px solid var(--color-border);
   border-radius: 999px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease;
   box-shadow: var(--shadow);
-  -webkit-backdrop-filter: blur(10px) saturate(160%);
   backdrop-filter: blur(10px) saturate(160%);
 }
 
+.theme-toggle__switch:hover,
 .theme-toggle__switch[aria-pressed="true"] {
-  border-color: var(--color-border-strong);
-}
-
-.theme-toggle__switch:hover {
   border-color: var(--color-border-strong);
 }
 
@@ -434,10 +386,9 @@ body :focus-visible {
   width: 100%;
   height: 100%;
   fill: currentColor;
-  stroke: none;
 }
 
-.theme-toggle__icon--sun svg path {
+.theme-toggle__icon--sun svg {
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
@@ -453,69 +404,99 @@ body :focus-visible {
   background: var(--color-border);
   border-radius: 50%;
   transform: translate(0, -50%);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.theme-toggle__switch[aria-pressed="true"] .theme-toggle__slider {
-  background: var(--color-border-strong);
-}
-
+/* Light mode slider */
 :root[data-theme="light"] .theme-toggle__switch {
   border-color: var(--color-border-strong);
 }
 
 :root[data-theme="light"] .theme-toggle__slider {
   background: var(--color-border-strong);
-}
-
-/* Light mode (default) - slider on left (sun side) */
-:root[data-theme="light"] .theme-toggle__slider,
-:root:not([data-theme]) .theme-toggle__slider {
   transform: translate(0, -50%);
 }
 
-/* Dark mode - slider on right (moon side) */
+/* Dark mode slider */
 :root[data-theme="dark"] .theme-toggle__slider {
+  background: var(--color-border-strong);
   transform: translate(1.5rem, -50%);
 }
 
-/* When system prefers dark mode but no explicit theme set */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) .theme-toggle__slider {
     transform: translate(1.5rem, -50%);
   }
 }
 
+/* ========================
+   Responsive Design
+   ======================== */
 @media (max-width: 560px) {
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .polaroid {
+    width: 100%;
+  }
+
+  .card {
+    gap: 2rem;
+  }
+
+  .links {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
   .theme-toggle {
     top: 1rem;
     right: 1rem;
     column-gap: 0.6rem;
   }
-  
+
   .theme-toggle__switch {
     width: 3rem;
     height: 1.75rem;
   }
-  
+
   .theme-toggle__icon {
     width: 1.3rem;
     height: 1.3rem;
   }
-  
+
   .theme-toggle__slider {
     width: 1.25rem;
     height: 1.25rem;
   }
-  
+
   :root[data-theme="dark"] .theme-toggle__slider {
     transform: translate(1.25rem, -50%);
   }
-  
+
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme]) .theme-toggle__slider {
       transform: translate(1.25rem, -50%);
     }
+  }
+}
+
+/* ========================
+   Accessibility
+   ======================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
