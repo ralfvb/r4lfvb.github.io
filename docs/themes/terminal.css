@@ -6,6 +6,7 @@
 :root[data-design="terminal"] {
   --font-display: 'Courier New', 'Consolas', 'Liberation Mono', monospace;
   --font-sans: 'Courier New', 'Consolas', 'Liberation Mono', monospace;
+  --theme-control-radius: 0;
 
   /* CGA amber/green light mode */
   --color-bg: #000000;
@@ -226,7 +227,9 @@
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.05em;
-  padding: 0.35rem 0.5rem;
+  padding: 0 0.5rem;
+  height: var(--theme-control-height);
+  min-height: var(--theme-control-height);
   cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffff00' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -280,7 +283,7 @@
 
   :root[data-design="terminal"] .theme-dropdown {
     font-size: 0.75rem;
-    padding: 0.3rem 0.4rem;
+    padding: 0 0.4rem;
     padding-right: 1.3rem;
   }
 }

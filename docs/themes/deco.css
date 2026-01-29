@@ -7,6 +7,7 @@
 :root[data-design="deco"] {
   --font-display: 'Yeseva One', 'Montserrat', 'Raleway', system-ui, sans-serif;
   --font-sans: 'Raleway', 'Montserrat', system-ui, sans-serif;
+  --theme-control-radius: 0.6rem;
 
   /* Light theme colors */
   --color-bg: #f5fdf9;
@@ -215,7 +216,7 @@
 .theme-toggle__switch {
   background: var(--color-card);
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: 0.6rem;
   box-shadow: var(--shadow);
   backdrop-filter: blur(10px) saturate(160%);
 }
@@ -260,7 +261,9 @@
   font-weight: 600;
   font-size: 0.85rem;
   letter-spacing: 0.04em;
-  padding: 0.45rem 0.6rem;
+  padding: 0 0.6rem;
+  height: var(--theme-control-height);
+  min-height: var(--theme-control-height);
   cursor: pointer;
   transition: all 0.3s ease;
   appearance: none;
@@ -294,7 +297,7 @@
 @media (max-width: 560px) {
   .theme-dropdown {
     font-size: 0.8rem;
-    padding: 0.4rem 0.5rem;
+    padding: 0 0.5rem;
     padding-right: 1.8rem;
   }
 }

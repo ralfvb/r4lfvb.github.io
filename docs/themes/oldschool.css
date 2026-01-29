@@ -6,6 +6,7 @@
 :root[data-design="oldschool"] {
   --font-display: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
   --font-sans: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+  --theme-control-radius: 0;
 
   --color-bg: #008080;
   --color-bg-accent: #008080;
@@ -157,7 +158,7 @@
   background: var(--color-card);
   border: 1px solid var(--color-border-strong);
   border-radius: 0;
-}
+  border-radius: 0;
 
 /* Old School Theme Dropdown */
 :root[data-design="oldschool"] .theme-dropdown {
@@ -173,7 +174,9 @@
   font-size: 0.85rem;
   font-weight: 400;
   letter-spacing: 0;
-  padding: 0.35rem 0.5rem;
+  padding: 0 0.5rem;
+  height: var(--theme-control-height);
+  min-height: var(--theme-control-height);
   padding-right: 1.5rem;
   cursor: pointer;
   appearance: none;

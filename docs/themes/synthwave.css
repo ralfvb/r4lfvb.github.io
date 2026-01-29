@@ -94,6 +94,7 @@
   background: transparent;
   color: var(--color-text);
   border: 2px solid var(--btn-border);
+  --theme-control-radius: 0.2rem;
   border-radius: 0.2rem;
   font-family: var(--font-sans);
   font-weight: 700;
@@ -172,7 +173,9 @@
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.05em;
-  padding: 0.4rem 0.6rem;
+  padding: 0 0.6rem;
+  height: var(--theme-control-height);
+  min-height: var(--theme-control-height);
   cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300f5ff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -205,7 +208,7 @@
 @media (max-width: 560px) {
   :root[data-design="synthwave"] .theme-dropdown {
     font-size: 0.75rem;
-    padding: 0.35rem 0.5rem;
+    padding: 0 0.5rem;
     padding-right: 1.5rem;
   }
 }
