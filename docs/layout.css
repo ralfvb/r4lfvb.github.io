@@ -51,6 +51,12 @@ body {
   gap: clamp(1rem, 2.5vw, 1.5rem);
 }
 
+.profile > .card__tag {
+  grid-column: 1 / 2;
+  justify-self: center;
+  margin-top: clamp(0.75rem, 2vh, 1.25rem);
+}
+
 @media (max-height: 680px) {
   .profile {
     margin-top: 1rem;
@@ -140,27 +146,36 @@ body {
 
 /* Card Tag */
 .card__tag {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 10;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .card__tag-paper {
-  background: #ffd966;
-  padding: 0.8rem 0.6rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  line-height: 1.4;
-  text-align: center;
-  width: 85px;
-  box-shadow: 
-    0 4px 6px rgba(0, 0, 0, 0.15),
-    -2px 2px 0 rgba(0, 0, 0, 0.05);
-  transform: rotate(12deg);
-  font-family: 'Marker Felt', 'Comic Sans MS', cursive;
-  color: #333;
-  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--color-text-muted);
+  padding: 0.15rem 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card__tag-paper::before,
+.card__tag-paper::after {
+  content: "";
+  display: block;
+  width: clamp(2.5rem, 10vw, 4.5rem);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-border-strong),
+    transparent
+  );
 }
 
 /* ========================
