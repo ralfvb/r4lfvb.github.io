@@ -313,12 +313,6 @@ body {
   transform: translateY(1px);
 }
 
-.theme-dropdown {
-  height: var(--theme-control-height);
-  min-height: var(--theme-control-height);
-  cursor: pointer;
-}
-
 /* ========================
    Focus Styles
    ======================== */

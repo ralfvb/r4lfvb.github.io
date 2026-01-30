@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-design="deco">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,18 +23,7 @@
   </head>
   <body>
     <!-- Theme Toggle Switch -->
-    <div class="theme-toggle" aria-label="Toggle light/dark mode and design theme">
-      <select class="theme-dropdown" id="themeDesign" aria-label="Choose design theme">
-        <option value="deco">Deco</option>
-        <option value="bubblegum">Bubblegum</option>
-        <option value="cyberpunk">Cyberpunk</option>
-        <option value="forest">Forest</option>
-        <option value="github">GitHub</option>
-        <option value="oldschool">Old School</option>
-        <option value="solarized">Solarized</option>
-        <option value="synthwave">Synthwave</option>
-        <option value="terminal">Terminal</option>
-      </select>
+    <div class="theme-toggle" aria-label="Toggle light/dark mode">
       <div class="theme-toggle__switch" role="group" aria-label="Theme preference">
         <button class="theme-toggle__option" type="button" data-theme="system" aria-pressed="true" aria-label="Match system theme">
           <span class="theme-toggle__icon theme-toggle__icon--system" aria-hidden="true">
@@ -106,7 +95,6 @@
     <script>
       // Theme toggle functionality
       const themeToggleButtons = document.querySelectorAll('.theme-toggle__option');
-      const themeDesign = document.getElementById('themeDesign');
       const html = document.documentElement;
       
       // Get stored theme or detect system preference
@@ -118,17 +106,17 @@
         return 'system';
       };
 
-      // Get stored design theme
-      const getPreferredDesign = () => {
-        const storedDesign = localStorage.getItem('design');
-        return storedDesign || 'deco';
-      };
-      
+      const systemMedia = window.matchMedia
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : null;
+      const getSystemTheme = () => (systemMedia?.matches ? 'dark' : 'light');
+
+      let activeTheme = getPreferredTheme();
+
       // Apply theme
       const setTheme = (theme, { persist = true } = {}) => {
-        const resolvedTheme = theme === 'system'
-          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-          : theme;
+        const resolvedTheme = theme === 'system' ? getSystemTheme() : theme;
+        activeTheme = theme;
         html.setAttribute('data-theme', resolvedTheme);
         if (persist) {
           localStorage.setItem('theme', theme);
@@ -138,21 +126,10 @@
         });
       };
 
-      // Apply design
-      const setDesign = (design) => {
-        html.setAttribute('data-design', design);
-        localStorage.setItem('design', design);
-        themeDesign.value = design;
-      };
-      
       // Initialize theme
       const storedTheme = localStorage.getItem('theme');
-      const currentTheme = getPreferredTheme();
-      setTheme(currentTheme, { persist: !!storedTheme });
-
-      // Initialize design
-      const currentDesign = getPreferredDesign();
-      setDesign(currentDesign);
+      activeTheme = getPreferredTheme();
+      setTheme(activeTheme, { persist: !!storedTheme });
       
       // Toggle theme on button click
       themeToggleButtons.forEach((button) => {
@@ -161,18 +138,15 @@
         });
       });
 
-      // Change design on dropdown change
-      themeDesign.addEventListener('change', (e) => {
-        setDesign(e.target.value);
-      });
-      
       // Listen for system theme changes
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        const storedTheme = localStorage.getItem('theme');
-        if (!storedTheme || storedTheme === 'system') {
-          setTheme('system', { persist: !!storedTheme });
-        }
-      });
+      if (systemMedia) {
+        systemMedia.addEventListener('change', () => {
+          if (activeTheme === 'system') {
+            const storedTheme = localStorage.getItem('theme');
+            setTheme('system', { persist: !!storedTheme });
+          }
+        });
+      }
 
       // Random photo loader
       (function() {
