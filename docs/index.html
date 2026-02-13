@@ -25,24 +25,14 @@
     <!-- Theme Toggle Switch -->
     <div class="theme-toggle" aria-label="Toggle light/dark mode">
       <div class="theme-toggle__switch" role="group" aria-label="Theme preference">
-        <button class="theme-toggle__option" type="button" data-theme="system" aria-pressed="true" aria-label="Match system theme">
-          <span class="theme-toggle__icon theme-toggle__icon--system" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <rect x="3" y="4" width="18" height="12" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2" />
-              <path d="M8 20h8M12 16v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </span>
-        </button>
-        <button class="theme-toggle__option" type="button" data-theme="light" aria-pressed="false" aria-label="Light mode">
+        <button class="theme-toggle__option" type="button" aria-label="Switch to dark mode">
           <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="4"/>
               <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
             </svg>
           </span>
-        </button>
-        <button class="theme-toggle__option" type="button" data-theme="dark" aria-pressed="false" aria-label="Dark mode">
-          <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">
+          <span class="theme-toggle__icon theme-toggle__icon--moon theme-toggle__icon--hidden" aria-hidden="true">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
@@ -50,6 +40,7 @@
         </button>
       </div>
     </div>
+    <div class="theme-transition" aria-hidden="true"></div>
 
     <main class="site">
       <div class="profile">
@@ -94,16 +85,18 @@
 
     <script>
       // Theme toggle functionality
-      const themeToggleButtons = document.querySelectorAll('.theme-toggle__option');
+      const themeToggleButton = document.querySelector('.theme-toggle__option');
+      const themeSunIcon = document.querySelector('.theme-toggle__icon--sun');
+      const themeMoonIcon = document.querySelector('.theme-toggle__icon--moon');
       const html = document.documentElement;
+      const themeTransitionLayer = document.querySelector('.theme-transition');
+      const prefersReducedMotion = window.matchMedia
+        ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        : false;
       
-      // Get stored theme or detect system preference
-      const getPreferredTheme = () => {
+      const getStoredTheme = () => {
         const storedTheme = localStorage.getItem('theme');
-        if (storedTheme === 'light' || storedTheme === 'dark' || storedTheme === 'system') {
-          return storedTheme;
-        }
-        return 'system';
+        return storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : null;
       };
 
       const systemMedia = window.matchMedia
@@ -111,39 +104,116 @@
         : null;
       const getSystemTheme = () => (systemMedia?.matches ? 'dark' : 'light');
 
-      let activeTheme = getPreferredTheme();
+      let activeTheme = getStoredTheme();
+
+      const updateToggleIcon = (resolvedTheme) => {
+        const showSun = resolvedTheme === 'dark';
+        themeToggleButton?.setAttribute('aria-label', showSun ? 'Switch to light mode' : 'Switch to dark mode');
+        themeSunIcon?.classList.toggle('theme-toggle__icon--hidden', !showSun);
+        themeMoonIcon?.classList.toggle('theme-toggle__icon--hidden', showSun);
+      };
+
+      const updateThemePreference = (theme, { persist = true } = {}) => {
+        activeTheme = theme;
+        if (persist) {
+          localStorage.setItem('theme', theme);
+          return;
+        }
+        localStorage.removeItem('theme');
+      };
+
+      const applyResolvedTheme = (resolvedTheme) => {
+        html.setAttribute('data-theme', resolvedTheme);
+        updateToggleIcon(resolvedTheme);
+      };
 
       // Apply theme
       const setTheme = (theme, { persist = true } = {}) => {
-        const resolvedTheme = theme === 'system' ? getSystemTheme() : theme;
-        activeTheme = theme;
-        html.setAttribute('data-theme', resolvedTheme);
-        if (persist) {
-          localStorage.setItem('theme', theme);
+        const resolvedTheme = theme ?? getSystemTheme();
+        updateThemePreference(theme, { persist });
+        applyResolvedTheme(resolvedTheme);
+      };
+
+      const runThemeTransition = (theme, origin) => {
+        if (!themeTransitionLayer || prefersReducedMotion) {
+          setTheme(theme);
+          return;
         }
-        themeToggleButtons.forEach((button) => {
-          button.setAttribute('aria-pressed', button.dataset.theme === theme);
-        });
+
+        const resolvedTheme = theme ?? getSystemTheme();
+        const currentResolvedTheme = html.getAttribute('data-theme') || getSystemTheme();
+
+        html.classList.add('theme-is-animating');
+        updateThemePreference(theme);
+
+        html.setAttribute('data-theme', resolvedTheme);
+        const computed = getComputedStyle(html);
+        const nextBg = computed.getPropertyValue('--color-bg').trim();
+        const nextBgAccent = computed.getPropertyValue('--color-bg-accent').trim();
+        html.setAttribute('data-theme', currentResolvedTheme);
+
+        const { innerWidth: width, innerHeight: height } = window;
+        const maxX = Math.max(origin.x, width - origin.x);
+        const maxY = Math.max(origin.y, height - origin.y);
+        const radius = Math.hypot(maxX, maxY);
+
+        themeTransitionLayer.style.setProperty('--theme-transition-bg', nextBg);
+        themeTransitionLayer.style.setProperty('--theme-transition-bg-accent', nextBgAccent);
+        themeTransitionLayer.style.setProperty('--theme-transition-x', `${origin.x}px`);
+        themeTransitionLayer.style.setProperty('--theme-transition-y', `${origin.y}px`);
+        themeTransitionLayer.style.setProperty('--theme-transition-radius', `${radius}px`);
+
+        themeTransitionLayer.classList.remove('theme-transition--active');
+        void themeTransitionLayer.offsetWidth;
+        themeTransitionLayer.classList.add('theme-transition--active');
+
+        let completed = false;
+        const finish = () => {
+          if (completed) return;
+          completed = true;
+          themeTransitionLayer.classList.remove('theme-transition--active');
+          applyResolvedTheme(resolvedTheme);
+          html.classList.remove('theme-is-animating');
+        };
+
+        const onTransitionEnd = (event) => {
+          if (event.propertyName !== 'clip-path') return;
+          themeTransitionLayer.removeEventListener('transitionend', onTransitionEnd);
+          finish();
+        };
+
+        themeTransitionLayer.addEventListener('transitionend', onTransitionEnd);
+        const durationMs = parseFloat(getComputedStyle(themeTransitionLayer).getPropertyValue('--theme-transition-duration')) || 0;
+        window.setTimeout(() => {
+          themeTransitionLayer.removeEventListener('transitionend', onTransitionEnd);
+          finish();
+        }, durationMs + 80);
+      };
+
+      const getNextTheme = () => {
+        const currentResolvedTheme = html.getAttribute('data-theme') || getSystemTheme();
+        return currentResolvedTheme === 'dark' ? 'light' : 'dark';
       };
 
       // Initialize theme
-      const storedTheme = localStorage.getItem('theme');
-      activeTheme = getPreferredTheme();
-      setTheme(activeTheme, { persist: !!storedTheme });
+      activeTheme = getStoredTheme();
+      setTheme(activeTheme, { persist: !!activeTheme });
       
       // Toggle theme on button click
-      themeToggleButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-          setTheme(button.dataset.theme);
-        });
+      themeToggleButton?.addEventListener('click', () => {
+        const rect = themeToggleButton.getBoundingClientRect();
+        const origin = {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2
+        };
+        runThemeTransition(getNextTheme(), origin);
       });
 
       // Listen for system theme changes
       if (systemMedia) {
         systemMedia.addEventListener('change', () => {
-          if (activeTheme === 'system') {
-            const storedTheme = localStorage.getItem('theme');
-            setTheme('system', { persist: !!storedTheme });
+          if (!activeTheme) {
+            setTheme(null, { persist: false });
           }
         });
       }
