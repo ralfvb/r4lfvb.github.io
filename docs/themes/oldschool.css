@@ -151,6 +151,7 @@
 
 :root[data-design="oldschool"] .theme-toggle__switch:hover,
 :root[data-design="oldschool"] .theme-toggle__switch[aria-pressed="true"] {
+  background: var(--color-border);
   border-color: var(--color-border-shadow) var(--color-border-dark) var(--color-border-dark) var(--color-border-shadow);
 }
 

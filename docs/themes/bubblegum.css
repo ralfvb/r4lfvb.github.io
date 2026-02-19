@@ -146,6 +146,7 @@
 }
 
 :root[data-design="bubblegum"] .theme-toggle__switch:hover {
+  background: var(--color-border);
   border-color: var(--color-accent);
   box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
 }

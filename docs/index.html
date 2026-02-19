@@ -40,8 +40,6 @@
         </button>
       </div>
     </div>
-    <div class="theme-transition" aria-hidden="true"></div>
-
     <main class="site">
       <div class="profile">
       <section class="card" aria-labelledby="name" aria-describedby="tagline">
@@ -89,10 +87,6 @@
       const themeSunIcon = document.querySelector('.theme-toggle__icon--sun');
       const themeMoonIcon = document.querySelector('.theme-toggle__icon--moon');
       const html = document.documentElement;
-      const themeTransitionLayer = document.querySelector('.theme-transition');
-      const prefersReducedMotion = window.matchMedia
-        ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        : false;
       
       const getStoredTheme = () => {
         const storedTheme = localStorage.getItem('theme');
@@ -134,62 +128,6 @@
         applyResolvedTheme(resolvedTheme);
       };
 
-      const runThemeTransition = (theme, origin) => {
-        if (!themeTransitionLayer || prefersReducedMotion) {
-          setTheme(theme);
-          return;
-        }
-
-        const resolvedTheme = theme ?? getSystemTheme();
-        const currentResolvedTheme = html.getAttribute('data-theme') || getSystemTheme();
-
-        html.classList.add('theme-is-animating');
-        updateThemePreference(theme);
-
-        html.setAttribute('data-theme', resolvedTheme);
-        const computed = getComputedStyle(html);
-        const nextBg = computed.getPropertyValue('--color-bg').trim();
-        const nextBgAccent = computed.getPropertyValue('--color-bg-accent').trim();
-        html.setAttribute('data-theme', currentResolvedTheme);
-
-        const { innerWidth: width, innerHeight: height } = window;
-        const maxX = Math.max(origin.x, width - origin.x);
-        const maxY = Math.max(origin.y, height - origin.y);
-        const radius = Math.hypot(maxX, maxY);
-
-        themeTransitionLayer.style.setProperty('--theme-transition-bg', nextBg);
-        themeTransitionLayer.style.setProperty('--theme-transition-bg-accent', nextBgAccent);
-        themeTransitionLayer.style.setProperty('--theme-transition-x', `${origin.x}px`);
-        themeTransitionLayer.style.setProperty('--theme-transition-y', `${origin.y}px`);
-        themeTransitionLayer.style.setProperty('--theme-transition-radius', `${radius}px`);
-
-        themeTransitionLayer.classList.remove('theme-transition--active');
-        void themeTransitionLayer.offsetWidth;
-        themeTransitionLayer.classList.add('theme-transition--active');
-
-        let completed = false;
-        const finish = () => {
-          if (completed) return;
-          completed = true;
-          themeTransitionLayer.classList.remove('theme-transition--active');
-          applyResolvedTheme(resolvedTheme);
-          html.classList.remove('theme-is-animating');
-        };
-
-        const onTransitionEnd = (event) => {
-          if (event.propertyName !== 'clip-path') return;
-          themeTransitionLayer.removeEventListener('transitionend', onTransitionEnd);
-          finish();
-        };
-
-        themeTransitionLayer.addEventListener('transitionend', onTransitionEnd);
-        const durationMs = parseFloat(getComputedStyle(themeTransitionLayer).getPropertyValue('--theme-transition-duration')) || 0;
-        window.setTimeout(() => {
-          themeTransitionLayer.removeEventListener('transitionend', onTransitionEnd);
-          finish();
-        }, durationMs + 80);
-      };
-
       const getNextTheme = () => {
         const currentResolvedTheme = html.getAttribute('data-theme') || getSystemTheme();
         return currentResolvedTheme === 'dark' ? 'light' : 'dark';
@@ -201,12 +139,7 @@
       
       // Toggle theme on button click
       themeToggleButton?.addEventListener('click', () => {
-        const rect = themeToggleButton.getBoundingClientRect();
-        const origin = {
-          x: rect.left + rect.width / 2,
-          y: rect.top + rect.height / 2
-        };
-        runThemeTransition(getNextTheme(), origin);
+        setTheme(getNextTheme());
       });
 
       // Listen for system theme changes

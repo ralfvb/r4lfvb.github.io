@@ -223,6 +223,7 @@
 
 .theme-toggle__switch:hover,
 .theme-toggle__switch[aria-pressed="true"] {
+  background: var(--color-border);
   border-color: var(--color-border-strong);
 }
 

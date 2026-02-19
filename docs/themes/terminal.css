@@ -200,6 +200,7 @@
 }
 
 :root[data-design="terminal"] .theme-toggle__switch:hover {
+  background: var(--color-border);
   border-color: var(--color-accent);
   box-shadow: var(--terminal-glow), inset 0 0 10px rgba(255, 255, 0, 0.3);
 }

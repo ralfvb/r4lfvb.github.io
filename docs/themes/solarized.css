@@ -148,6 +148,7 @@
 }
 
 :root[data-design="solarized"] .theme-toggle__switch:hover {
+  background: var(--color-border);
   border-color: var(--color-border-strong);
   box-shadow: 0 4px 12px rgba(38, 139, 210, 0.15);
 }

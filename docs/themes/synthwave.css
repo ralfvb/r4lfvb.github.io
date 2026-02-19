@@ -148,6 +148,7 @@
 }
 
 :root[data-design="synthwave"] .theme-toggle__switch:hover {
+  background: var(--color-border);
   border-color: var(--color-border-strong);
   box-shadow: 0 0 20px var(--color-border-strong);
 }
