@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="themes/synthwave.css" />
     <link rel="stylesheet" href="themes/terminal.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = (stored === 'light' || stored === 'dark') ? stored : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
   </head>
   <body>
     <!-- Theme Toggle Switch -->

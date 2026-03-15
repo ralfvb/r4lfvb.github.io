@@ -43,7 +43,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-design]):not([data-theme]) {
+  :root[data-design="deco"]:not([data-theme]) {
     --color-bg: #0d1c16;
     --color-bg-accent: #12251d;
     --color-card: #162f25cc;
