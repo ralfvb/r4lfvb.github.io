@@ -33,7 +33,8 @@ Out of Scope / Non‑Goals:
 ## 4. Architecture & Structure
 Single layer with *content*, *presentation*, and *very light behavior* kept conceptually distinct:
 - `index.html`: semantic structure + metadata.
-- `styles.css`: design tokens, layout, state, responsive adjustments.
+- `layout.css`: layout, responsive, state styles.
+- `themes/deco.css`: design tokens and theme-specific styling.
 - Inline `<script>`: only feature: theme toggle (dark/light). Future JS must justify itself inline with a comment referencing this constitution (e.g., `// Allowed: progressive enhancement – reason:`).
 
 ### Layer Boundaries / Rules
@@ -45,7 +46,8 @@ Single layer with *content*, *presentation*, and *very light behavior* kept conc
 | Artifact | Budget (uncompressed) | Notes |
 |----------|-----------------------|-------|
 | `index.html` | ≤ 60 KB | Currently well below; avoid inline bloat. |
-| `styles.css` | ≤ 35 KB | Keep cascade tidy; prune unused selectors. |
+| `layout.css` | ≤ 20 KB | Keep layout tidy; minimal responsive adjustments. |
+| `themes/deco.css` | ≤ 15 KB | Theme tokens and component styles. |
 | JS (inline) | ≤ 4 KB | Only enhancement; no libraries. |
 | Requests (initial) | ≤ 8 | HTML + CSS + favicon + fonts*. |
 

@@ -133,19 +133,6 @@ body {
   transition: filter 0.3s ease;
 }
 
-/* Polaroid Tag */
-.polaroid__tag {
-  display: none;
-}
-
-.polaroid__string {
-  display: none;
-}
-
-.polaroid__tag-paper {
-  display: none;
-}
-
 /* Card Tag */
 .card__tag {
   display: flex;

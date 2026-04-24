@@ -19,7 +19,8 @@ The page presents a centered, responsive “card” featuring the name, a concis
 
 ```text
 index.html   # Markup, metadata, font preconnect + links
-styles.css   # Theme tokens, layout, responsive & state styles
+layout.css   # Layout, responsive, state styles
+themes/deco.css # Theme tokens and design styles
 ```
 
 ## Theming & Tokens
