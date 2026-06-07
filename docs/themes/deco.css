@@ -5,8 +5,8 @@
 /* Deco theme (default) */
 :root,
 :root[data-design="deco"] {
-  --font-display: 'Yeseva One', system-ui, sans-serif;
-  --font-sans: 'Raleway', system-ui, sans-serif;
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  --font-sans: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   /* Light theme colors */
   --color-bg: #f5fdf9;

@@ -40,7 +40,7 @@ Single layer with *content*, *presentation*, and *very light behavior* kept conc
 ### Layer Boundaries / Rules
 - HTML must remain semantic (no purely decorative `<div>` wrappers without class purpose).
 - JS MUST NOT block initial rendering (keep inline, tiny, after critical markup; no external JS files unless <2KB and well‑justified).
-- Fonts may remain via Google Fonts for now; future optimization: self‑host to reduce third‑party reliance.
+- Fonts use a local/system stack to eliminate third‑party dependencies; future optimization: consider self‑hosting only if needed.
 
 ## 5. Performance Budgets
 | Artifact | Budget (uncompressed) | Notes |

@@ -10,7 +10,7 @@ The page presents a centered, responsive “card” featuring the name, a concis
 
 - Glassy, soft card (backdrop blur) with gentle mint background gradient.
 - Accent color (currently `--color-accent: #ff8eea`) used for interactive emphasis & focus ring.
-- Large display type (Yeseva One) + clean sans‑serif body (Raleway).
+- Large display type + clean sans‑serif body using local system fonts.
 - Minimal pill outline buttons with inline official SVG icons (LinkedIn & GitHub).
 - No JavaScript, no build tooling—pure static assets.
 - Accessible focus styles, semantic landmarks, and descriptive link labels.
@@ -18,7 +18,7 @@ The page presents a centered, responsive “card” featuring the name, a concis
 ## File Structure
 
 ```text
-index.html   # Markup, metadata, font preconnect + links
+index.html   # Markup, metadata, and local font stack
 layout.css   # Layout, responsive, state styles
 themes/deco.css # Theme tokens and design styles
 ```
