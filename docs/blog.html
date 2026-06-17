@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" data-design="deco">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Thoughts - Ralf</title>
+    <meta name="description" content="Ralf's blog - thoughts and insights" />
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="themes/deco.css" />
+    <link rel="stylesheet" href="blog.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = (stored === 'light' || stored === 'dark') ? stored : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- Theme Toggle Switch -->
+    <div class="theme-toggle" aria-label="Toggle light/dark mode">
+      <div class="theme-toggle__switch" role="group" aria-label="Theme preference">
+        <button class="theme-toggle__option" type="button" aria-label="Switch to dark mode">
+          <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
+            </svg>
+          </span>
+          <span class="theme-toggle__icon theme-toggle__icon--moon theme-toggle__icon--hidden" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <main class="blog-main">
+      <!-- Blog Header with Glass Effect -->
+      <div class="blog-header">
+        <div class="blog-header__content">
+          <div class="blog-header__title">Ralf</div>
+          <div class="blog-header__subtitle">my thoughts...</div>
+          <button class="blog-header__search" aria-label="Search blog posts" type="button">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Blog Posts Grid -->
+      <section class="blog-posts" aria-labelledby="blog-title">
+        <div class="blog-post-card">
+          <article>
+            <header class="blog-post-card__header">
+              <h2 class="blog-post-card__title">The Power of Deliberate Practice</h2>
+              <time class="blog-post-card__date" datetime="2026-06-10">June 10, 2026</time>
+            </header>
+            <p class="blog-post-card__excerpt">
+              Exploring how consistent, focused practice can transform your skills and mindset. Learn the principles behind deliberate practice and how to apply them to your own journey.
+            </p>
+            <a href="#" class="blog-post-card__link">Read more →</a>
+          </article>
+        </div>
+
+        <div class="blog-post-card">
+          <article>
+            <header class="blog-post-card__header">
+              <h2 class="blog-post-card__title">Minimalism in Code</h2>
+              <time class="blog-post-card__date" datetime="2026-06-05">June 5, 2026</time>
+            </header>
+            <p class="blog-post-card__excerpt">
+              Why simplicity in code design leads to better maintainability and fewer bugs. We'll explore practical strategies for writing clean, minimal code.
+            </p>
+            <a href="#" class="blog-post-card__link">Read more →</a>
+          </article>
+        </div>
+
+        <div class="blog-post-card">
+          <article>
+            <header class="blog-post-card__header">
+              <h2 class="blog-post-card__title">Building in Public</h2>
+              <time class="blog-post-card__date" datetime="2026-05-28">May 28, 2026</time>
+            </header>
+            <p class="blog-post-card__excerpt">
+              Sharing the journey of building projects openly. Benefits, challenges, and lessons learned from being transparent about the process.
+            </p>
+            <a href="#" class="blog-post-card__link">Read more →</a>
+          </article>
+        </div>
+
+        <div class="blog-post-card">
+          <article>
+            <header class="blog-post-card__header">
+              <h2 class="blog-post-card__title">On Remote Work and Focus</h2>
+              <time class="blog-post-card__date" datetime="2026-05-20">May 20, 2026</time>
+            </header>
+            <p class="blog-post-card__excerpt">
+              Creating an environment for deep work in a distributed setting. Practical tips for maintaining focus and managing distractions.
+            </p>
+            <a href="#" class="blog-post-card__link">Read more →</a>
+          </article>
+        </div>
+
+        <div class="blog-post-card">
+          <article>
+            <header class="blog-post-card__header">
+              <h2 class="blog-post-card__title">Photography and Perspective</h2>
+              <time class="blog-post-card__date" datetime="2026-05-10">May 10, 2026</time>
+            </header>
+            <p class="blog-post-card__excerpt">
+              How photography teaches us to observe the world differently. Insights from behind the lens and what it means to capture a moment.
+            </p>
+            <a href="#" class="blog-post-card__link">Read more →</a>
+          </article>
+        </div>
+
+        <div class="blog-post-card">
+          <article>
+            <header class="blog-post-card__header">
+              <h2 class="blog-post-card__title">The Present Moment</h2>
+              <time class="blog-post-card__date" datetime="2026-05-01">May 1, 2026</time>
+            </header>
+            <p class="blog-post-card__excerpt">
+              Reflections on mindfulness and living in the present. How letting go of the past and future can free us to experience what's happening now.
+            </p>
+            <a href="#" class="blog-post-card__link">Read more →</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Theme toggle functionality
+      const themeToggleButton = document.querySelector('.theme-toggle__option');
+      const themeSunIcon = document.querySelector('.theme-toggle__icon--sun');
+      const themeMoonIcon = document.querySelector('.theme-toggle__icon--moon');
+      const html = document.documentElement;
+      
+      const getStoredTheme = () => {
+        const storedTheme = localStorage.getItem('theme');
+        return storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : null;
+      };
+
+      const systemMedia = window.matchMedia
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : null;
+      const getSystemTheme = () => (systemMedia?.matches ? 'dark' : 'light');
+
+      let activeTheme = getStoredTheme();
+
+      const updateToggleIcon = (resolvedTheme) => {
+        const showSun = resolvedTheme === 'dark';
+        themeToggleButton?.setAttribute('aria-label', showSun ? 'Switch to light mode' : 'Switch to dark mode');
+        themeSunIcon?.classList.toggle('theme-toggle__icon--hidden', !showSun);
+        themeMoonIcon?.classList.toggle('theme-toggle__icon--hidden', showSun);
+      };
+
+      const updateThemePreference = (theme, { persist = true } = {}) => {
+        activeTheme = theme;
+        if (persist) {
+          localStorage.setItem('theme', theme);
+          return;
+        }
+        localStorage.removeItem('theme');
+      };
+
+      const applyResolvedTheme = (resolvedTheme) => {
+        html.setAttribute('data-theme', resolvedTheme);
+        updateToggleIcon(resolvedTheme);
+      };
+
+      const setTheme = (theme, { persist = true } = {}) => {
+        const resolvedTheme = theme ?? getSystemTheme();
+        updateThemePreference(theme, { persist });
+        applyResolvedTheme(resolvedTheme);
+      };
+
+      const getNextTheme = () => {
+        const currentResolvedTheme = html.getAttribute('data-theme') || getSystemTheme();
+        return currentResolvedTheme === 'dark' ? 'light' : 'dark';
+      };
+
+      // Initialize theme
+      activeTheme = getStoredTheme();
+      setTheme(activeTheme, { persist: !!activeTheme });
+      
+      // Toggle theme on button click
+      themeToggleButton?.addEventListener('click', () => {
+        setTheme(getNextTheme());
+      });
+
+      // Listen for system theme changes
+      if (systemMedia) {
+        systemMedia.addEventListener('change', () => {
+          if (!activeTheme) {
+            setTheme(null, { persist: false });
+          }
+        });
+      }
+
+      // Search button placeholder functionality
+      const searchButton = document.querySelector('.blog-header__search');
+      searchButton?.addEventListener('click', () => {
+        alert('Search functionality coming soon!');
+      });
+    </script>
+  </body>
+</html>
