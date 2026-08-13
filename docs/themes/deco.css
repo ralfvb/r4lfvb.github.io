@@ -235,3 +235,15 @@
 :root[data-theme="light"] .theme-toggle__switch {
   border-color: var(--color-border-strong);
 }
+
+@media (max-width: 560px) {
+  .theme-toggle__switch,
+  .theme-toggle__switch:hover,
+  .theme-toggle__switch[aria-pressed="true"],
+  :root[data-theme="light"] .theme-toggle__switch {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+}

@@ -6,8 +6,8 @@
     <title>Ralf</title>
     <meta name="description" content="Ralf's personal website with contact info and photography" />
     <!-- Local system font stack for zero external dependencies -->
-    <link rel="stylesheet" href="layout.css" />
-    <link rel="stylesheet" href="themes/deco.css" />
+    <link rel="stylesheet" href="layout.css?v=20260813-5" />
+    <link rel="stylesheet" href="themes/deco.css?v=20260813-1" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <script>
       (function () {
@@ -19,30 +19,31 @@
     </script>
   </head>
   <body>
-    <!-- Theme Toggle Switch -->
-    <div class="theme-toggle" aria-label="Toggle light/dark mode">
-      <div class="theme-toggle__switch" role="group" aria-label="Theme preference">
-        <button class="theme-toggle__option" type="button" aria-label="Switch to dark mode">
-          <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="4"/>
-              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
-            </svg>
-          </span>
-          <span class="theme-toggle__icon theme-toggle__icon--moon theme-toggle__icon--hidden" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-          </span>
-        </button>
-      </div>
-    </div>
     <main class="site">
       <div class="profile">
+      <!-- Theme Toggle Switch -->
+      <div class="theme-toggle" aria-label="Toggle light/dark mode">
+        <div class="theme-toggle__switch" role="group" aria-label="Theme preference">
+          <button class="theme-toggle__option" type="button" aria-label="Switch to dark mode">
+            <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
+              </svg>
+            </span>
+            <span class="theme-toggle__icon theme-toggle__icon--moon theme-toggle__icon--hidden" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
       <section class="card" aria-labelledby="name" aria-describedby="tagline">
         <header class="card__header">
           <h1 id="name" class="name">Ralf</h1>
           <p id="tagline" class="tagline">The past has no power over the present moment.</p>
+          <img class="card__crest" src="photos/family-crest.png" alt="Family crest" width="314" height="432" />
         </header>
         <div class="divider" aria-hidden="true"></div>
         <nav class="links" aria-label="Primary">

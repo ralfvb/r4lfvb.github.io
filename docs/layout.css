@@ -78,12 +78,17 @@ body {
 }
 
 .card__header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  display: grid;
+  grid-template-areas:
+    "name crest"
+    "tagline crest";
+  grid-template-columns: minmax(0, 1fr) clamp(5rem, 10vw, 7rem);
+  align-items: center;
+  gap: 0.75rem 1.5rem;
 }
 
 .name {
+  grid-area: name;
   font-family: var(--font-display);
   font-size: clamp(3rem, 9vw, 5.25rem);
   line-height: 0.92;
@@ -94,10 +99,28 @@ body {
 }
 
 .tagline {
+  grid-area: tagline;
   margin: 0;
   font-size: clamp(1rem, 2.1vw, 1.25rem);
   font-weight: 500;
   max-width: 34ch;
+}
+
+.card__crest {
+  grid-area: crest;
+  width: 100%;
+  height: auto;
+  max-height: 9rem;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.15);
+  mix-blend-mode: multiply;
+  opacity: 0.72;
+}
+
+:root[data-theme="dark"] .card__crest {
+  filter: grayscale(1) invert(1) contrast(1.2);
+  mix-blend-mode: screen;
+  opacity: 0.62;
 }
 
 .divider {
@@ -327,10 +350,33 @@ body {
     --theme-toggle-option-size: 1.75rem;
   }
 
+  body {
+    padding-top: 1rem;
+  }
+
+  .site {
+    justify-content: flex-start;
+  }
+
   .profile {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+  }
+
+  .card__header {
+    grid-template-areas:
+      "crest"
+      "name"
+      "tagline";
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+
+  .card__crest {
+    width: 6rem;
   }
 
   .polaroid {
@@ -350,8 +396,9 @@ body {
   }
 
   .theme-toggle {
-    top: 1rem;
-    right: 1rem;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
     column-gap: 0.6rem;
   }
 
