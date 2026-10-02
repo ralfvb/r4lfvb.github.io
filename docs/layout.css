@@ -265,10 +265,6 @@ body {
   top: 1.5rem;
   right: 1.5rem;
   z-index: 1000;
-  display: grid;
-  grid-auto-flow: column;
-  align-items: center;
-  column-gap: 0.75rem;
 }
 
 .theme-toggle__switch {
@@ -278,12 +274,7 @@ body {
   gap: 0.25rem;
   padding: calc((var(--theme-control-height) - var(--theme-toggle-option-size)) / 2);
   height: var(--theme-control-height);
-  border-radius: var(--theme-control-radius);
-  transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-.theme-toggle__switch:hover {
-  background: var(--color-border);
+  transition: border-color 0.3s ease;
 }
 
 .theme-toggle__icon {
@@ -292,7 +283,6 @@ body {
   justify-content: center;
   width: 1.25rem;
   height: 1.25rem;
-  transition: color 0.3s ease;
 }
 
 .theme-toggle__icon svg {
@@ -301,11 +291,12 @@ body {
   fill: currentColor;
 }
 
-.theme-toggle__icon--hidden {
-  display: none;
+.theme-toggle__icon--system svg {
+  fill: none;
 }
 
-.theme-toggle__icon--sun svg {
+.theme-toggle__icon--sun svg,
+.theme-toggle__icon--system svg {
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
@@ -321,23 +312,43 @@ body {
   border: none;
   border-radius: var(--theme-control-radius);
   background: transparent;
-  color: var(--color-text);
   cursor: pointer;
-  transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
-}
-
-.theme-toggle__option:hover {
-  background: transparent;
-}
-
-.theme-toggle__option[aria-pressed="true"] {
-  background: var(--color-border-strong);
-  color: var(--color-text);
-  border-radius: var(--theme-control-radius);
+  transition: color 0.25s ease, transform 0.2s ease;
 }
 
 .theme-toggle__option:active {
   transform: translateY(1px);
+}
+
+/* Wide screens with a fine pointer: collapse to the active option, expand on hover/focus */
+@media (min-width: 561px) and (hover: hover) and (pointer: fine) {
+  .theme-toggle__switch {
+    gap: 0;
+    padding-inline: calc((var(--theme-control-height) - var(--theme-toggle-option-size)) / 2 - 0.125rem);
+  }
+
+  .theme-toggle__option {
+    margin-inline: 0.125rem;
+    transition: color 0.25s ease, transform 0.2s ease,
+      width 0.3s ease, margin 0.3s ease, opacity 0.2s ease, visibility 0s linear 0.3s;
+  }
+
+  .theme-toggle__option:not(.theme-toggle__option--active) {
+    width: 0;
+    margin-inline: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+  }
+
+  /* Expand on hover or keyboard focus only, so a mouse click doesn't keep it open */
+  .theme-toggle__switch:is(:hover, :has(:focus-visible)) .theme-toggle__option {
+    width: var(--theme-toggle-option-size);
+    margin-inline: 0.125rem;
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
 }
 
 /* ========================
@@ -406,18 +417,17 @@ body {
     position: absolute;
     top: 0.75rem;
     right: 0.75rem;
-    column-gap: 0.6rem;
   }
 
-  .theme-toggle__switch {
-    gap: 0.2rem;
+  /* Only the active option is shown; tapping it cycles (see inline script) */
+  .theme-toggle__option:not(.theme-toggle__option--active) {
+    display: none;
   }
 
   .theme-toggle__icon {
     width: 1.1rem;
     height: 1.1rem;
   }
-
 }
 
 /* ========================

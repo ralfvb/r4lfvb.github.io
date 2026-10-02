@@ -35,7 +35,7 @@ Single layer with *content*, *presentation*, and *very light behavior* kept conc
 - `index.html`: semantic structure + metadata.
 - `layout.css`: layout, responsive, state styles.
 - `themes/deco.css`: design tokens and theme-specific styling.
-- Inline `<script>`: only feature: theme toggle (dark/light). Future JS must justify itself inline with a comment referencing this constitution (e.g., `// Allowed: progressive enhancement – reason:`).
+- Inline `<script>`: only feature: theme switcher (system/dark/light). Future JS must justify itself inline with a comment referencing this constitution (e.g., `// Allowed: progressive enhancement – reason:`).
 
 ### Layer Boundaries / Rules
 - HTML must remain semantic (no purely decorative `<div>` wrappers without class purpose).

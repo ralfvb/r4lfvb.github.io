@@ -6,8 +6,8 @@
     <title>Ralf</title>
     <meta name="description" content="Ralf's personal website with contact info and photography" />
     <!-- Local system font stack for zero external dependencies -->
-    <link rel="stylesheet" href="layout.css?v=20260813-8" />
-    <link rel="stylesheet" href="themes/deco.css?v=20260813-1" />
+    <link rel="stylesheet" href="layout.css?v=20261002-9" />
+    <link rel="stylesheet" href="themes/deco.css?v=20261002-9" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <script>
       (function () {
@@ -22,18 +22,28 @@
     <main class="site">
       <div class="profile">
       <!-- Theme Toggle Switch -->
-      <div class="theme-toggle" aria-label="Toggle light/dark mode">
+      <div class="theme-toggle">
         <div class="theme-toggle__switch" role="group" aria-label="Theme preference">
-          <button class="theme-toggle__option" type="button" aria-label="Switch to dark mode">
+          <button class="theme-toggle__option theme-toggle__option--active" type="button" data-theme-option="system" aria-pressed="true" aria-label="Use system theme" title="System">
+            <span class="theme-toggle__icon theme-toggle__icon--system" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <path d="M8 21h8m-4-4v4"/>
+              </svg>
+            </span>
+          </button>
+          <button class="theme-toggle__option" type="button" data-theme-option="dark" aria-pressed="false" aria-label="Use dark theme" title="Dark">
+            <span class="theme-toggle__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            </span>
+          </button>
+          <button class="theme-toggle__option" type="button" data-theme-option="light" aria-pressed="false" aria-label="Use light theme" title="Light">
             <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="4"/>
                 <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
-              </svg>
-            </span>
-            <span class="theme-toggle__icon theme-toggle__icon--moon theme-toggle__icon--hidden" aria-hidden="true">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
               </svg>
             </span>
           </button>
@@ -80,74 +90,65 @@
     </main>
 
     <script>
-      // Theme toggle functionality
-      const themeToggleButton = document.querySelector('.theme-toggle__option');
-      const themeSunIcon = document.querySelector('.theme-toggle__icon--sun');
-      const themeMoonIcon = document.querySelector('.theme-toggle__icon--moon');
-      const html = document.documentElement;
-      
-      const getStoredTheme = () => {
-        const storedTheme = localStorage.getItem('theme');
-        return storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : null;
-      };
+      // Theme switcher: system / dark / light ("system" follows prefers-color-scheme).
+      // On narrow screens only the active option is shown and tapping it cycles to the next.
+      (() => {
+        const html = document.documentElement;
+        const options = document.querySelectorAll('[data-theme-option]');
+        const order = ['system', 'dark', 'light'];
+        const names = { system: 'System', dark: 'Dark', light: 'Light' };
+        const systemMedia = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        // Keep in sync with the max-width breakpoint in layout.css
+        const tightMedia = window.matchMedia ? window.matchMedia('(max-width: 560px)') : null;
+        const getSystemTheme = () => (systemMedia?.matches ? 'dark' : 'light');
+        const getStoredPreference = () => {
+          const stored = localStorage.getItem('theme');
+          return stored === 'light' || stored === 'dark' ? stored : 'system';
+        };
+        const getNext = () => order[(order.indexOf(preference) + 1) % order.length];
 
-      const systemMedia = window.matchMedia
-        ? window.matchMedia('(prefers-color-scheme: dark)')
-        : null;
-      const getSystemTheme = () => (systemMedia?.matches ? 'dark' : 'light');
+        let preference = getStoredPreference();
 
-      let activeTheme = getStoredTheme();
+        const apply = () => {
+          html.setAttribute('data-theme', preference === 'system' ? getSystemTheme() : preference);
+          const tight = !!tightMedia?.matches;
+          options.forEach((option) => {
+            const value = option.dataset.themeOption;
+            const active = value === preference;
+            option.classList.toggle('theme-toggle__option--active', active);
+            if (tight && active) {
+              option.removeAttribute('aria-pressed');
+              option.setAttribute('aria-label', `Theme: ${names[value]}. Switch to ${names[getNext()]}`);
+            } else {
+              option.setAttribute('aria-pressed', String(active));
+              option.setAttribute('aria-label', `Use ${value} theme`);
+            }
+          });
+        };
 
-      const updateToggleIcon = (resolvedTheme) => {
-        const showSun = resolvedTheme === 'dark';
-        themeToggleButton?.setAttribute('aria-label', showSun ? 'Switch to light mode' : 'Switch to dark mode');
-        themeSunIcon?.classList.toggle('theme-toggle__icon--hidden', !showSun);
-        themeMoonIcon?.classList.toggle('theme-toggle__icon--hidden', showSun);
-      };
-
-      const updateThemePreference = (theme, { persist = true } = {}) => {
-        activeTheme = theme;
-        if (persist) {
-          localStorage.setItem('theme', theme);
-          return;
-        }
-        localStorage.removeItem('theme');
-      };
-
-      const applyResolvedTheme = (resolvedTheme) => {
-        html.setAttribute('data-theme', resolvedTheme);
-        updateToggleIcon(resolvedTheme);
-      };
-
-      // Apply theme
-      const setTheme = (theme, { persist = true } = {}) => {
-        const resolvedTheme = theme ?? getSystemTheme();
-        updateThemePreference(theme, { persist });
-        applyResolvedTheme(resolvedTheme);
-      };
-
-      const getNextTheme = () => {
-        const currentResolvedTheme = html.getAttribute('data-theme') || getSystemTheme();
-        return currentResolvedTheme === 'dark' ? 'light' : 'dark';
-      };
-
-      // Initialize theme
-      activeTheme = getStoredTheme();
-      setTheme(activeTheme, { persist: !!activeTheme });
-      
-      // Toggle theme on button click
-      themeToggleButton?.addEventListener('click', () => {
-        setTheme(getNextTheme());
-      });
-
-      // Listen for system theme changes
-      if (systemMedia) {
-        systemMedia.addEventListener('change', () => {
-          if (!activeTheme) {
-            setTheme(null, { persist: false });
+        const setPreference = (next) => {
+          preference = next;
+          if (next === 'system') {
+            localStorage.removeItem('theme');
+          } else {
+            localStorage.setItem('theme', next);
           }
+          apply();
+        };
+
+        options.forEach((option) => {
+          option.addEventListener('click', () => {
+            setPreference(tightMedia?.matches ? getNext() : option.dataset.themeOption);
+          });
         });
-      }
+
+        systemMedia?.addEventListener('change', () => {
+          if (preference === 'system') apply();
+        });
+        tightMedia?.addEventListener('change', apply);
+
+        apply();
+      })();
 
       // Random photo loader
       (function() {
