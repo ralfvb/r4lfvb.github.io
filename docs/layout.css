@@ -283,7 +283,7 @@ body {
 }
 
 .theme-toggle__switch:hover {
-  background: var(--color-border);
+  background: transparent;
 }
 
 .theme-toggle__icon {
