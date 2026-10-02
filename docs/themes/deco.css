@@ -263,11 +263,11 @@
 
 /* Collapsed switch on wide screens: drop the frame, keep only the icon */
 @media (min-width: 561px) and (hover: hover) and (pointer: fine) {
-  .theme-toggle__switch:not(:hover):not(:focus-within) {
+  .theme-toggle__switch:not(:hover):not(:has(:focus-visible)) {
     border-color: transparent;
   }
 
-  .theme-toggle__switch:not(:hover):not(:focus-within) .theme-toggle__option {
+  .theme-toggle__switch:not(:hover):not(:has(:focus-visible)) .theme-toggle__option {
     color: var(--color-text-muted);
   }
 }

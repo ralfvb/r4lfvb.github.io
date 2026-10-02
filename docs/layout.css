@@ -357,8 +357,8 @@ body {
     overflow: hidden;
   }
 
-  .theme-toggle__switch:hover .theme-toggle__option,
-  .theme-toggle__switch:focus-within .theme-toggle__option {
+  /* Expand on hover or keyboard focus only, so a mouse click doesn't keep it open */
+  .theme-toggle__switch:is(:hover, :has(:focus-visible)) .theme-toggle__option {
     width: var(--theme-toggle-option-size);
     margin-inline: 0.125rem;
     opacity: 1;
