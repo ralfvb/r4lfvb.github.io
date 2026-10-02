@@ -6,8 +6,8 @@
     <title>Ralf</title>
     <meta name="description" content="Ralf's personal website with contact info and photography" />
     <!-- Local system font stack for zero external dependencies -->
-    <link rel="stylesheet" href="                layout.css?v=20261002-6" />
-        <link rel="stylesheet" href="themes/deco.css?v=20261002-4" />
+    <link rel="stylesheet" href="                    layout.css?v=20261002-7" />
+        <link rel="stylesheet" href="themes/deco.css?v=20261002-5" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <script>
       (function () {
@@ -24,7 +24,7 @@
       <!-- Theme Toggle Switch -->
       <div class="theme-toggle">
         <div class="theme-toggle__switch" role="group" aria-label="Theme preference">
-          <button class="theme-toggle__option" type="button" data-theme-option="system" aria-pressed="false" aria-label="Use system theme" title="System">
+          <button class="theme-toggle__option theme-toggle__option--active" type="button" data-theme-option="system" aria-pressed="true" aria-label="Use system theme" title="System">
             <span class="theme-toggle__icon theme-toggle__icon--system" aria-hidden="true">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="3" width="20" height="14" rx="2"/>
@@ -90,23 +90,39 @@
     </main>
 
     <script>
-      // Theme switcher: system / dark / light ("system" follows prefers-color-scheme)
+      // Theme switcher: system / dark / light ("system" follows prefers-color-scheme).
+      // On narrow screens only the active option is shown and tapping it cycles to the next.
       (() => {
         const html = document.documentElement;
         const options = document.querySelectorAll('[data-theme-option]');
+        const order = ['system', 'dark', 'light'];
+        const names = { system: 'System', dark: 'Dark', light: 'Light' };
         const systemMedia = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        // Keep in sync with the max-width breakpoint in layout.css
+        const tightMedia = window.matchMedia ? window.matchMedia('(max-width: 560px)') : null;
         const getSystemTheme = () => (systemMedia?.matches ? 'dark' : 'light');
         const getStoredPreference = () => {
           const stored = localStorage.getItem('theme');
           return stored === 'light' || stored === 'dark' ? stored : 'system';
         };
+        const getNext = () => order[(order.indexOf(preference) + 1) % order.length];
 
         let preference = getStoredPreference();
 
         const apply = () => {
           html.setAttribute('data-theme', preference === 'system' ? getSystemTheme() : preference);
+          const tight = !!tightMedia?.matches;
           options.forEach((option) => {
-            option.setAttribute('aria-pressed', String(option.dataset.themeOption === preference));
+            const value = option.dataset.themeOption;
+            const active = value === preference;
+            option.classList.toggle('theme-toggle__option--active', active);
+            if (tight && active) {
+              option.removeAttribute('aria-pressed');
+              option.setAttribute('aria-label', `Theme: ${names[value]}. Switch to ${names[getNext()]}`);
+            } else {
+              option.setAttribute('aria-pressed', String(active));
+              option.setAttribute('aria-label', `Use ${value} theme`);
+            }
           });
         };
 
@@ -121,12 +137,15 @@
         };
 
         options.forEach((option) => {
-          option.addEventListener('click', () => setPreference(option.dataset.themeOption));
+          option.addEventListener('click', () => {
+            setPreference(tightMedia?.matches ? getNext() : option.dataset.themeOption);
+          });
         });
 
         systemMedia?.addEventListener('change', () => {
           if (preference === 'system') apply();
         });
+        tightMedia?.addEventListener('change', apply);
 
         apply();
       })();

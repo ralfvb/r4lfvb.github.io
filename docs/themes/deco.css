@@ -231,7 +231,7 @@
   color: var(--color-text);
 }
 
-.theme-toggle__option[aria-pressed="true"] {
+.theme-toggle__option--active {
   color: var(--color-accent-strong);
 }
 
@@ -253,6 +253,11 @@
     border: 0;
     box-shadow: none;
     backdrop-filter: none;
+  }
+
+  /* Single cycling icon on narrow screens stays muted */
+  .theme-toggle__switch .theme-toggle__option {
+    color: var(--color-text-muted);
   }
 }
 
