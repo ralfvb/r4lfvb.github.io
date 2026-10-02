@@ -227,10 +227,6 @@
   color: var(--color-text-muted);
 }
 
-.theme-toggle__option:hover {
-  color: var(--color-text);
-}
-
 .theme-toggle__option--active {
   color: var(--color-accent-strong);
 }
