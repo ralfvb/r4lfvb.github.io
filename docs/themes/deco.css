@@ -257,6 +257,13 @@
   }
 }
 
+/* Narrow screens with a real pointer: accent on hover (skipped on touch to avoid sticky hover) */
+@media (max-width: 560px) and (hover: hover) {
+  .theme-toggle__switch .theme-toggle__option:hover {
+    color: var(--color-accent-strong);
+  }
+}
+
 /* Collapsed switch on wide screens: drop the frame, keep only the icon */
 @media (min-width: 561px) and (hover: hover) and (pointer: fine) {
   .theme-toggle__switch:not(:hover):not(:has(:focus-visible)) {
