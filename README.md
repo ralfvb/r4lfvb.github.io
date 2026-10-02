@@ -4,7 +4,7 @@ Minimal single‑page personal contact card implemented with **only HTML & CSS**
 
 ## Overview
 
-The page presents a centered, responsive “card” featuring the name, a concise tagline, and quick links to LinkedIn & GitHub. The aesthetic blends quiet Scandinavian restraint with subtle Art‑Deco typography cues—now in a pared‑back, airy style (no heavy ornamentation). Light and dark themes follow the user’s system preference via `prefers-color-scheme`.
+The page presents a centered, responsive “card” featuring the name, a concise tagline, and quick links to LinkedIn & GitHub. The aesthetic blends quiet Scandinavian restraint with subtle Art‑Deco typography cues—now in a pared‑back, airy style (no heavy ornamentation). Light and dark themes follow the user’s system preference via `prefers-color-scheme` by default; a three-way switch (System / Dark / Light) lets visitors override it.
 
 ## Current Design Characteristics
 

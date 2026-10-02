@@ -301,11 +301,12 @@ body {
   fill: currentColor;
 }
 
-.theme-toggle__icon--hidden {
-  display: none;
+.theme-toggle__icon--system svg {
+  fill: none;
 }
 
-.theme-toggle__icon--sun svg {
+.theme-toggle__icon--sun svg,
+.theme-toggle__icon--system svg {
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
