@@ -332,9 +332,7 @@ body {
 }
 
 .theme-toggle__option[aria-pressed="true"] {
-  background: var(--color-border-strong);
-  color: var(--color-text);
-  border-radius: var(--theme-control-radius);
+  background: transparent;
 }
 
 .theme-toggle__option:active {
@@ -364,10 +362,6 @@ body {
     overflow: hidden;
   }
 
-  .theme-toggle__option[aria-pressed="true"] {
-    background: transparent;
-  }
-
   .theme-toggle__switch:hover,
   .theme-toggle__switch:focus-within {
     opacity: 1;
@@ -380,11 +374,6 @@ body {
     opacity: 1;
     visibility: visible;
     transition-delay: 0s;
-  }
-
-  .theme-toggle__switch:hover .theme-toggle__option[aria-pressed="true"],
-  .theme-toggle__switch:focus-within .theme-toggle__option[aria-pressed="true"] {
-    background: var(--color-border-strong);
   }
 }
 

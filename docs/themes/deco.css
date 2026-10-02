@@ -223,7 +223,12 @@
   border-color: var(--color-border-strong);
 }
 
-.theme-toggle__icon {
+.theme-toggle__option {
+  color: var(--color-text-muted);
+}
+
+.theme-toggle__option:hover,
+.theme-toggle__option[aria-pressed="true"] {
   color: var(--color-text);
 }
 
