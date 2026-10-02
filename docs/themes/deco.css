@@ -247,3 +247,13 @@
     backdrop-filter: none;
   }
 }
+
+/* Collapsed switch on wide screens: drop the frame, keep only the icon */
+@media (min-width: 561px) and (hover: hover) and (pointer: fine) {
+  .theme-toggle__switch:not(:hover):not(:focus-within) {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+}
