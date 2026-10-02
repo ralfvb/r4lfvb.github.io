@@ -344,8 +344,7 @@ body {
   .theme-toggle__switch {
     gap: 0;
     padding-inline: calc((var(--theme-control-height) - var(--theme-toggle-option-size)) / 2 - 0.125rem);
-    opacity: 0.55;
-    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   .theme-toggle__option {
@@ -360,11 +359,6 @@ body {
     opacity: 0;
     visibility: hidden;
     overflow: hidden;
-  }
-
-  .theme-toggle__switch:hover,
-  .theme-toggle__switch:focus-within {
-    opacity: 1;
   }
 
   .theme-toggle__switch:hover .theme-toggle__option,

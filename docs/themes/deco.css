@@ -261,4 +261,8 @@
   .theme-toggle__switch:not(:hover):not(:focus-within) {
     border-color: transparent;
   }
+
+  .theme-toggle__switch:not(:hover):not(:focus-within) .theme-toggle__option {
+    color: var(--color-text-muted);
+  }
 }
