@@ -213,13 +213,11 @@
    Theme Toggle Styling
    ======================== */
 .theme-toggle__switch {
-  background: transparent;
   border: 1px solid var(--color-border);
   border-radius: 0.6rem;
 }
 
-.theme-toggle__switch:hover,
-.theme-toggle__switch[aria-pressed="true"] {
+.theme-toggle__switch:hover {
   border-color: var(--color-border-strong);
 }
 
@@ -231,24 +229,14 @@
   color: var(--color-accent-strong);
 }
 
-.theme-toggle__slider {
-  background: var(--color-border);
-}
-
 /* Light mode switch styling */
 :root[data-theme="light"] .theme-toggle__switch {
   border-color: var(--color-border-strong);
 }
 
 @media (max-width: 560px) {
-  .theme-toggle__switch,
-  .theme-toggle__switch:hover,
-  .theme-toggle__switch[aria-pressed="true"],
-  :root[data-theme="light"] .theme-toggle__switch {
-    background: transparent;
+  .theme-toggle__switch {
     border: 0;
-    box-shadow: none;
-    backdrop-filter: none;
   }
 
   /* Single cycling icon on narrow screens stays muted */
